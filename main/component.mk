@@ -5,7 +5,7 @@
 
 #添加头文件目录
 COMPONENT_ADD_INCLUDEDIRS := \
-./st7789v\
+./st7789v \
 ./wifi 
 
 #添加源文件目录
