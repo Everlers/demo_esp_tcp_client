@@ -4,6 +4,7 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "string.h"
+#include "stdarg.h"
 
 static spi_device_handle_t stspi;
 DMA_ATTR static const lcd_init_cmd_t st_init_cmds[];
@@ -65,6 +66,18 @@ void lcd_init(void)
     }
     lcd_clean(COLOR_BLACK);
     lcd_blk_on();
+}
+
+int lcd_show_printf(uint16_t x,uint16_t y,uint16_t pointColor,uint16_t backColor,char *fmt,...)
+{
+	char *buffer=pvPortMalloc(1024);
+  va_list args;
+  va_start (args, fmt);
+  int n = vsnprintf(buffer, 1024, fmt, args);
+  lcd_show_string(x,y,buffer,pointColor,backColor);
+  va_end(args);
+  vPortFree(buffer);
+  return n;
 }
 
 void lcd_show_string(uint16_t x,uint16_t y,char *str,uint16_t pointColor,uint16_t backColor)

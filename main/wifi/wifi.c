@@ -1,4 +1,6 @@
 #include "wifi.h"
+#include "tcp.h"
+
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "esp_system.h"
@@ -8,7 +10,7 @@
 #include "nvs_flash.h"
 #include "lwip/ip4_addr.h"
 
-static char *TAG = "WiFi";
+static char *TAG = __FILE__;
 static void event_handler(void* arg, esp_event_base_t event_base,int32_t event_id, void* event_data);
 
 //WiFi STA模式初始化
@@ -61,7 +63,8 @@ static void event_handler(void* arg, esp_event_base_t event_base,int32_t event_i
 	if(event_base == IP_EVENT)//如果是IP事件(获取到IP地址)
 	{
 		ip_event_got_ip_t* event = (ip_event_got_ip_t*) event_data;
-    ESP_LOGI(TAG, "got ip:%s", ip4addr_ntoa((const ip4_addr_t *)&event->ip_info.ip));
+    //ESP_LOGI(TAG, "got ip:%s", ip4addr_ntoa((const ip4_addr_t *)&event->ip_info.ip));
+    tcpInit();//初始化TCP
 	}
 }
 

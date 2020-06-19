@@ -6,10 +6,12 @@
 #添加头文件目录
 COMPONENT_ADD_INCLUDEDIRS := \
 ./st7789v \
-./wifi 
+./wifi \
+./tcp 
 
 #添加源文件目录
 COMPONENT_SRCDIRS := \
 ./ \
 ./st7789v \
-./wifi 
+./wifi \
+./tcp 
